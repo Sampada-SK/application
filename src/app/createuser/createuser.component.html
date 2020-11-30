@@ -1,0 +1,209 @@
+
+<div *ngIf="!showEditUserForm" class="container">
+    <h2>Create Employee</h2>
+<form [formGroup]="UserForm" (submit)="createUser($event, UserForm)" >
+    
+    <div class="form-group">
+        <label> Id</label><label class="text-danger">*</label>
+        <input type="text" formControlName="id" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.id.errors }">
+        <div *ngIf="submitted && user.id.errors" class="invalid-feedback">
+            <div *ngIf="user.id.errors.required" class="text-danger">id is required</div>
+            <div *ngIf="user.id.errors.cannotContainSpace" class="text-danger">id Cannot Contain Space</div>
+          </div>
+     </div>
+                  <div class="form-group">
+                    <label> Name</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="Ename" class="form-control cshadow"  [ngClass]="{ 'is-invalid': submitted && user.Ename.errors }">
+                    <div *ngIf="submitted && user.Ename.errors" class="invalid-feedback">
+                        <div *ngIf="user.Ename.errors.required" class="text-danger">Name is required</div>
+                        <div *ngIf="user.Ename.errors.cannotContainSpace" class="text-danger">Name Cannot Contain Space</div>
+                      </div>
+                 </div>
+
+                <div class="form-group">
+                    <label> Username</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="username" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.username.errors }">
+                    <div *ngIf="submitted && user.username.errors" class="invalid-feedback">
+                        <div *ngIf="user.username.errors.required" class="text-danger">username is required</div>
+                        <div *ngIf="user.username.errors.cannotContainSpace" class="text-danger">username Cannot Contain Space</div>
+                      </div>
+                </div>
+
+                <div class="form-group">
+                    <label> Email</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="email" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.email.errors }">
+                    <div *ngIf="submitted && user.email.errors" class="invalid-feedback">
+                        <div *ngIf="user.email.errors.required" class="text-danger">Email is required</div>
+                        <div *ngIf="user.email.errors.pattern">Email  must be a valid Email ID address</div>
+                        <div *ngIf="user.email.errors.cannotContainSpace" class="text-danger">Email Cannot Contain Space</div>
+                      </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label> Address</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="address" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.address.errors }">
+                    <div *ngIf="submitted && user.address.errors" class="invalid-feedback">
+                        <div *ngIf="user.address.errors.required" class="text-danger">address is required</div>
+                        <div *ngIf="user.address.errors.cannotContainSpace" class="text-danger">address Cannot Contain Space</div>
+                      </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label> company</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="company" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.company.errors }">
+                    <div *ngIf="submitted && user.company.errors" class="invalid-feedback">
+                        <div *ngIf="user.company.errors.required" class="text-danger">company is required</div>
+                        <div *ngIf="user.company.errors.cannotContainSpace" class="text-danger">company Cannot Contain Space</div>
+                      </div>
+                </div>
+
+                <div class="form-group">
+                    <label> Website</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="website" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.website.errors }">
+                    <div *ngIf="submitted && user.website.errors" class="invalid-feedback">
+                        <div *ngIf="user.website.errors.required" class="text-danger">website is required</div>
+                        <div *ngIf="user.website.errors.cannotContainSpace" class="text-danger">website Cannot Contain Space</div>
+                      </div>
+                </div>
+
+                <div class="form-group">
+                    <label> Phone</label><label class="text-danger">*</label>
+                    <input type="text" formControlName="phone" class="form-control cshadow" [ngClass]="{ 'is-invalid': submitted && user.phone.errors }">
+                    <div *ngIf="submitted && user.phone.errors" class="invalid-feedback">
+                        <div *ngIf="user.phone.errors.required" class="text-danger">phone is required</div>
+                        <div *ngIf="user.phone.errors.cannotContainSpace" class="text-danger">phone Cannot Contain Space</div>
+                      </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-plus"></i> Create Employee
+                  </button>
+                 
+</form>
+<div class="status" *ngIf="userCreated">
+    Employee Created Sucessfully.
+  </div>
+
+</div>
+
+<h2>List of Employees</h2>
+<div class="table-responsive">
+    <table
+      class="row-border hover table table-bordered table-striped table-condensed mb-none">
+      <thead class="tblheading">
+        <tr class="tablehead">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Website</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userData">
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.website}}</td>
+          <td>
+            <button style="margin: 4px;" class="btn btn-primary" (click)="editUser($event, user)">
+              <i class="fas fa-edit"></i> Edit Employee
+            </button>
+            <button style="margin: 4px;" class="btn btn-danger" (click)="deleteuser( user)">
+              <i class="fas fa-trash"></i> Delete Employee
+            </button>
+        </td>
+        <div class="status" *ngIf="userDeleted && user.id === userDeletedId">
+            Employee Deleted Sucessfully.
+          </div>
+        </tr>
+      </tbody>
+     
+    </table>
+  </div>
+
+  <div class="modal fade" bsModal #deletemodal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-dailyproduct-name">
+  <div class="modal-dialog  modal-l pTop" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center" style="background-color:#f5901f !important;color: #fff; ">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Delete Record</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="deletemodal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="container form-group ">
+          <div class="row">
+            <div class="col">
+              <span>Are you sure you want to Delete the Employee?</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="row main">
+          <div class="col-sm-4 col-1"></div>
+          <div class="col-sm-2 col-5 text-center" style="padding: 9px;">
+
+            <button type="button" class="btn pull-center popupbtn" (click)="deleteUserData(user)"
+              >OK</button>
+          </div>
+          <div class="col-sm-2 col-5 text-center" style="padding: 9px;">
+            <button type="button" class="btn pull-center popupbtn"  (click)="deletemodal.hide()">Cancel</button>
+          </div>
+          <div class="col-sm-4 col-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   <!-- <div class="container">
+    <form [formGroup]="editUserForm" (submit)="editUserData($event, editUserForm)" >
+        
+        <div class="form-group">
+            <label> Id</label><label class="text-danger">*</label>
+            <input type="text" formControlName="id" class="form-control cshadow">
+         </div>
+                      <div class="form-group">
+                        <label> Name</label><label class="text-danger">*</label>
+                        <input type="text" formControlName="Ename" class="form-control cshadow">
+                     </div>
+    
+                    <div class="form-group">
+                        <label> Username</label><label class="text-danger">*</label>
+                        <input type="text" formControlName="username" class="form-control cshadow">
+                    </div>
+    
+                    <div class="form-group">
+                        <label> Email</label><label class="text-danger">*</label>
+                        <input type="text" formControlName="email" class="form-control cshadow">
+                    </div>
+
+    
+                    <div class="form-group">
+                        <label> company</label><label class="text-danger">*</label>
+                        <input type="text" formControlName="company" class="form-control cshadow">
+                    </div>
+    
+                    <div class="form-group">
+                        <label> Website</label><label class="text-danger">*</label>
+                        <input type="text" formControlName="website" class="form-control cshadow">
+                    </div>
+    
+                    <div class="form-group">
+                        <label> Phone</label><label class="text-danger">*</label>
+                        <input type="text" formControlName="phone" class="form-control cshadow">
+                    </div>
+    
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-plus"></i> Create User
+                      </button>
+                     
+    </form>
+    
+    </div> -->

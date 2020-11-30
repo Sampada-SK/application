@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.form-group .form-control{
+    font-size:inherit;
+    background-color: inherit;
+}
+.status {
+    padding: 8px;
+    background: #0b990b;
+    color: white;
+    margin-top: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  .popupbtn{
+    background: #f5901f !important;
+    color:#fff !important;    
+    border-radius: 9px !important;
+  }
